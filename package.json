@@ -1,7 +1,6 @@
 {
   "name": "react-test-app-three",
   "private": true,
-  "homepage": "https://mxmuk.github.io/react-three-test-app/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
