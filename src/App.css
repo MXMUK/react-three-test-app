@@ -1,0 +1,7 @@
+#three-canvas-container {
+  height: 100vh !important;
+}
+
+body {
+  background: linear-gradient(90deg, #3A1078 0%, #000 100%);
+}
