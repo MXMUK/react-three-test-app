@@ -14,7 +14,7 @@ import { Power1, gsap } from 'gsap';
 import { angleToRadians } from '../../utils/ungle';
 
 export function Bitcoin(props) {
-  const { nodes, materials } = useGLTF('/models/bitcoin/scene.gltf');
+  const { nodes, materials } = useGLTF('./models/bitcoin/scene.gltf');
   const bitcoinRef = useRef(null);
 
   useEffect(() => {
@@ -53,4 +53,4 @@ export function Bitcoin(props) {
   );
 }
 
-useGLTF.preload('/models/bitcoin/scene.gltf');
+useGLTF.preload('./models/bitcoin/scene.gltf');
