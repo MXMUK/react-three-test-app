@@ -55,7 +55,7 @@ export const Three = () => {
 
           <MeshReflectorMaterial
             blur={[700, 700]}
-            resolution={3048}
+            resolution={1048}
             mixBlur={1}
             mixStrength={100}
             depthScale={2}
