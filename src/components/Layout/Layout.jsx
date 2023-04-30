@@ -1,13 +1,30 @@
-import { Article } from './components/Article/Article';
-import { Header } from './components/Header/Header';
+/* eslint-disable react/prop-types */
 import './style.css';
+import { Container, TopLeft, BottomLeft, BottomRight, Hamburger } from './styles';
 
-export const Layout = () => {
+export const Layout = ({ onFlip }) => {
   return (
-    <div className="layout">
-      <Header />
+    <Container>
+      <TopLeft>
+        <h1>ADVANCED DIGITAL PRODUCTS</h1>
+        <p>In React & Threejs —</p>
+      </TopLeft>
 
-      <Article />
-    </div>
+      <BottomLeft>
+        <button onClick={() => onFlip(true)} >flip</button>
+      </BottomLeft>
+
+      <BottomRight>
+        If you have a UI designer and you only need high-quality research of user experience and a
+        strategy based on them, we are ready to provide you understand the market, competitors,
+        users and requirements for designing of the future product.
+      </BottomRight>
+
+      <Hamburger>
+        <div />
+        <div />
+        <div />
+      </Hamburger>
+    </Container>
   );
 };
