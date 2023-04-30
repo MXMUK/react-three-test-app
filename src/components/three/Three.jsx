@@ -1,75 +1,71 @@
 /* eslint-disable react/no-unknown-property */
 import {
   Environment,
+  Float,
   GradientTexture,
+  MeshReflectorMaterial,
   OrbitControls,
   PerspectiveCamera,
-  Shape
+  PresentationControls,
+  Shape,
+  Stage,
+  useTexture
 } from '@react-three/drei';
 import { angleToRadians } from '../../utils/ungle';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import gsap, { Circ, Expo, Power1 } from 'gsap';
+import { Bitcoin } from '../Bitcoin/Bitcoin';
 
 export const Three = () => {
-  const orbitControl = useRef(null);
+  // const orbitControl = useRef(null);
 
-  useFrame((state) => {
-    if (orbitControl.current) {
-      // console.log(state.camera);
-      // console.log(state.camera.position);
-    }
-
-    // state.camera.position.y = false;
-  });
+  useEffect(() => {
+    // if (ballRef.current) {
+    //   console.log(ballRef.current);
+    //   gsap.to(ballRef.current.position, {
+    //     y: 0.5,
+    //     ease: Power1.easeInOut,
+    //     duration: 4,
+    //     repeat: -1,
+    //     yoyo: true
+    //   });
+    // }
+  }, []);
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 1, 6]} />
-      <OrbitControls ref={orbitControl} maxPolarAngle={angleToRadians(89)} />
+      <PresentationControls
+        speed={1.5}
+        rotation={[angleToRadians(30), 0, 0]}
+        polar={[angleToRadians(10), 0]}>
+           
 
-      {/* ball */}
-      <mesh castShadow>
-        <sphereGeometry args={[1, 32, 32]} />
+        <Stage adjustCamera={1} environment="city" intensity={0.6} castShadow={false}>
+          <Float speed={1} rotationIntensity={0} floatIntensity={1} floatingRange={[0, 0.1]}>
+            <Bitcoin />
+          </Float>
+        </Stage>
 
-        <meshStandardMaterial color="#ffffff" metalness={0.9} roughness={0.1}/>
-        {/* <meshMatcapMaterial color="#000" /> */}
-      </mesh>
+        {/* floor */}
+        <mesh rotation={[angleToRadians(-90), 0, 0]} position={[0, -0.9, 0]}>
+          <planeGeometry args={[170, 170]} />
 
-      {/* floor */}
-      <mesh rotation={[-angleToRadians(90), 0, 0]} position={[0, -1, 0]} receiveShadow>
-        {/* <planeGeometry args={[window.innerWidth, window.innerHeight]} /> */}
-        <planeGeometry args={[10, 10]} />
-
-        <meshStandardMaterial color="#cc2293" />
-      </mesh>
-
-      <ambientLight args={['#ffffff', 0.25]} />
-      {/* <directionalLight args={['#fff', 1]} position={[-3, 5, 0]} castShadow /> */}
-      <spotLight
-        args={['#ffffff', 4, 8, angleToRadians(45), 0.5]}
-        position={[-3, 2, 0]}
-        castShadow
-      />
-
-      <Environment background>
-        <mesh>
-          <sphereGeometry args={[50, 100, 100]} />
-          <meshBasicMaterial color="#cc2293" side={THREE.BackSide} />
+          <MeshReflectorMaterial
+            blur={[700, 700]}
+            resolution={3048}
+            mixBlur={1}
+            mixStrength={100}
+            depthScale={2}
+            minDepthThreshold={0.5}
+            maxDepthThreshold={1.5}
+            color="#171917"
+            metalness={0.5}
+          />
         </mesh>
-      </Environment>
-
-      {/* <Environment background resolution={64}>
-        <mesh scale={100}>
-          <sphereGeometry args={[1, 64, 64]} />
-          <LayerMaterial side={THREE.BackSide}>
-            <Base color="blue" alpha={1} mode="normal" />
-            <Depth colorA="#00ffff" colorB="#ff8f00" alpha={0.5} mode="normal" near={0} far={300} origin={[100, 100, 100]} />
-            <Noise mapping="local" type="cell" scale={0.5} mode="softlight" />
-          </LayerMaterial>
-        </mesh>
-      </Environment> */}
+      </PresentationControls>
     </>
   );
 };
