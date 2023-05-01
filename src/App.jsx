@@ -1,26 +1,35 @@
 /* eslint-disable react/no-unknown-property */
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
-import { Canvas } from '@react-three/fiber';
-import { Three } from './components/three';
-import { Layout } from './components/Layout';
+import { CoinScene } from './components/CoinScene/CoinScene';
+import { Works } from './components/Works/Works';
+import styled from 'styled-components';
+import AboutUs from './components/AboutUs/AboutUs';
 
 function App() {
-  const [flip, setFlip] = useState(false)
+  const [flip, setFlip] = useState(false);
+
+  const Container = styled.div`
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(90deg, blue, black, purple);
+    font-family: 'Pathway Extreme', sans-serif;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    color: white;
+  `;
 
   return (
-    <div className="App">
-      <Canvas camera={{ position: [5, 0, 10], fov: 40 }}>
-        <color attach="background" args={['#050505']} />
-        <fog attach="fog" args={['#050505', 10, 20]} />
-
-        <Suspense fallback={null}>
-          <Three isFlipping={flip} onFlip={setFlip} />
-        </Suspense>
-      </Canvas>
-
-      <Layout onFlip={setFlip} />
-    </div>
+    <Container className="App">
+      <AboutUs onFlip={setFlip} />
+      <CoinScene isFlip={flip} onFlip={setFlip} />
+      <Works />
+    </Container>
   );
 }
 
